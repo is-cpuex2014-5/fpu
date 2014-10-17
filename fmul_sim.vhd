@@ -25,10 +25,11 @@ architecture fmul_sim of fmul_sim is
   signal c : std_logic_vector (31 downto 0) := (others => '0');  
   signal clk : std_logic := '0';
 
-  type buff is array (4 downto 0) of std_logic_vector (31 downto 0);
+  type buff is array (3 downto 0) of std_logic_vector (31 downto 0);
   signal cc : buff := (others => (others => '0'));
   signal cccc : std_logic_vector (31 downto 0) := (others => '0');  
-  signal state : std_logic_vector (2 downto 0) := (others => '0');
+  signal state : std_logic_vector (1 downto 0) := (others => '0');
+  signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
   file inf : text;
 begin  -- architecture fmul_sim
@@ -36,18 +37,7 @@ begin  -- architecture fmul_sim
   file_open(inf, "fmul.dat",  read_mode);
   i_fmul : fmul port map (a,b,clk,c);
 
-  judge: process (clk) is
-  begin  -- process judge
-    if rising_edge (clk) then  -- rising clock edge
-      if cc(conv_integer(state)) = c then
-        Q <= '0';
-      else
-        Q <= '1';
-      end if;
-    end if;
-  end process judge;
-
-  file_loop: process (clk) is
+  main_loop: process 
     variable l : line;
     variable aa : std_logic_vector (31 downto 0) := (others => '0');
     variable bb : std_logic_vector (31 downto 0) := (others => '0');
@@ -55,19 +45,23 @@ begin  -- architecture fmul_sim
     variable ss : character;
 
   begin  -- process file_loop
-    if clk'event and clk = '1' then    -- rising clock edge
+    if not endfile(inf) then
+      wait for clk_period/2;
+      clk <= '0';
+      wait for clk_period/2;
+      clk <= '1';
       case state is
-        when "000" =>
-          state <= "001";
-        when "001" =>
-          state <= "010";
-        when "010" =>
-          state <= "011";
-        when "011" =>
-          state <= "100";
-        when "100" =>
-          state <= "000";        when others =>
-          state <= "000";
+        when "00" =>
+          state <= "01";
+        when "01" =>
+          state <= "11";
+        when "11" =>
+          state <= "10";
+        when "10" =>
+          s <= '1';
+          state <= "00";
+        when others =>
+          state <= "00";
       end case;
       readline(inf, l);
       read(l, aa);
@@ -79,15 +73,15 @@ begin  -- architecture fmul_sim
       b <= bb;
       cccc <= ccc;
       cc(conv_integer(state)) <= ccc;
+      if s = '0' or cc(conv_integer(state)) = c then
+        Q <= '0';
+      else
+        Q <= '1';
+        assert false report "fmul test not passed!!" severity failure;
+      end if;
+    else
+      wait;
     end if;
-  end process file_loop;
-
-  clk_gen: process
-  begin  -- process clk_gen
-    clk <= '0';
-    wait for clk_period/2;
-    clk <= '1';
-    wait for clk_period/2;
-  end process clk_gen;
+  end process main_loop;
 
 end architecture fmul_sim;

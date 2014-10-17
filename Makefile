@@ -11,5 +11,8 @@ $(TESTBENCH): $(OBJS)
 %.o: %.vhd
 	$(GHDL) -a $(GHDLFLAGS) $<
 
+test:$(TESTBENCH)
+	./test.sh
+
 clean:
 	rm -f $(OBJS) $(TESTBENCH)
