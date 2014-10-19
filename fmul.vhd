@@ -58,8 +58,8 @@ architecture behav of fmul is
   signal special_flag : std_logic := '0';
   signal special_out : std_logic_vector (31 downto 0) := (others => '0');
 
-     signal e : std_logic_vector (15 downto 0) := (others => '0');
-     signal m : std_logic_vector (47 downto 0) := (others => '0');
+  signal e : std_logic_vector (15 downto 0) := (others => '0');
+  signal m : std_logic_vector (47 downto 0) := (others => '0');
   signal re : std_logic := '0';
   signal HH : std_logic_vector (25 downto 0) := (others => '0');
   signal HL : std_logic_vector (23 downto 0) := (others => '0');

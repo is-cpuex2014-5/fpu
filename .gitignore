@@ -2,3 +2,6 @@
 *~
 *.cf
 *.vcd
+fmul_sim
+*.dat
+fadd_sim
