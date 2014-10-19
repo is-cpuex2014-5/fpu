@@ -68,7 +68,7 @@ begin  -- architecture fadd_stage3
             i_exp;
 
   o_exp <= (others => '0')
-           when o_exp0 < (i_leading_zero - 1) or leading_zero >= 26
+           when i_leading_zero > 0 and (o_exp0 < (i_leading_zero - 1) or leading_zero >= 26)
            else o_exp0 - i_leading_zero + 1;
 
   ret <= i_sign & o_exp & o_mantissa;
