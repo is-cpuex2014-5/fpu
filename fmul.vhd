@@ -46,17 +46,17 @@ architecture behav of fmul is
       exp   : out std_logic_vector (7 downto 0));
   end component fmul_stage3;
 
-  component fmul_special is
-    port (
-      A     : in  std_logic_vector (31 downto 0);
-      B     : in  std_logic_vector (31 downto 0);
-      CLK   : in  std_logic;
-      C     : out std_logic_vector (31 downto 0);
-      flag : out std_logic);
-  end component fmul_special;
+  --component fmul_special is
+  --  port (
+  --    A     : in  std_logic_vector (31 downto 0);
+  --    B     : in  std_logic_vector (31 downto 0);
+  --    CLK   : in  std_logic;
+  --    C     : out std_logic_vector (31 downto 0);
+  --    flag : out std_logic);
+  --end component fmul_special;
 
-  signal special_flag : std_logic := '0';
-  signal special_out : std_logic_vector (31 downto 0) := (others => '0');
+  --signal special_flag : std_logic := '0';
+  --signal special_out : std_logic_vector (31 downto 0) := (others => '0');
 
   signal e : std_logic_vector (15 downto 0) := (others => '0');
   signal m : std_logic_vector (47 downto 0) := (others => '0');
@@ -77,7 +77,7 @@ architecture behav of fmul is
   
 begin  -- architecture behav
 
-  special : fmul_special port map (A,B,CLK,special_out,special_flag);
+  --special : fmul_special port map (A,B,CLK,special_out,special_flag);
 
   stage1 : fmul_stage1 port map (A,B,CLK,exp01,HH,HL,LH,sign_o);
 
