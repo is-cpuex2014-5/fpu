@@ -2,7 +2,5 @@
 *~
 *.cf
 *.vcd
-fmul_sim
 *.dat
-fadd_sim
-fsub_sim
+*_sim
