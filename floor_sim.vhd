@@ -12,7 +12,6 @@ entity floor_sim is
 end entity floor_sim;
 
 architecture floor_sim of floor_sim is
-
   component floor is
     port (A : in std_logic_vector (31 downto 0);
           CLK : in std_logic;

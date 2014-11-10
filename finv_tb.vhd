@@ -30,7 +30,7 @@ architecture testbench of finv_tb is
     4 => "10011110101110000000100000110110",
     5 => "10011010110010001000011000100100",
     6 => "01111011101110110001000110110100",
-    7 => "01001100100010100010110000101000");
+    7 => "01001100100010100010110000101001");
 
   component finv is
     port (A : in std_logic_vector (31 downto 0);
@@ -46,7 +46,8 @@ architecture testbench of finv_tb is
   type buff is array (3 downto 0) of std_logic_vector (31 downto 0);
   signal cc : std_logic_vector (31 downto 0) := (others => '0');  
   signal QQ : std_logic_vector (7 downto 0) := x"2f";
-  signal ccc : std_logic_vector (31 downto 0) := (others => '0');  
+  signal ccc : std_logic_vector (31 downto 0) := (others => '0'); 
+  signal Q_buff : std_logic_vector (7 downto 0) := (others => '0');  
   signal state : std_logic_vector (1 downto 0) := (others => '0');
 begin  -- architecture finv_tb
 
@@ -57,23 +58,30 @@ begin  -- architecture finv_tb
     if rising_edge (clk) then  -- rising clock edge
       ccc <= cc ;
       if ccc = c then
-        Q <= x"30";
+		  Q_buff(addr) <= '0';
+        --Q <= x"30";
       else
-        Q <= x"31";
+		  Q_buff(addr) <= '0';		
+        --Q <= x"31";
       end if;
     end if;
   end process judge;
 
-  ram_loop: process (clk) is
+  ram_loop: process (clk,Q_buff) is
     variable ss : character;
 
   begin  -- process file_loop
     if clk'event and clk = '1' then    -- rising clock edge
       s_a <= a_lut (addr);
-      cc <= ans_lut (addr);      
+      cc <= ans_lut (addr);
       if addr >= 7 then
         addr <= 0;
       else
+		  if Q_buff = "00000000" then
+		      Q <= x"30";
+		  else
+		      Q <= x"31";
+		  end if;
         addr <= addr + 1;
       end if;
     end if;

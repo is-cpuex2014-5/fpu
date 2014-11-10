@@ -29,7 +29,7 @@ begin  -- architecture behav
   with sign select
     Q <=
     ret  when '0',
-    not ret when others;
+    not ret + 1 when others;
 
   -- purpose: set input
   -- type   : combinational
