@@ -30,7 +30,7 @@ architecture behav of i2f is
 begin  -- architecture behav
   with sign select
     raw_mantissa <=
-    not i when '1',
+    (not i) + 1 when '1',
     i when others;
 
   ZLC:ZLC31 port map(raw_mantissa,s);
@@ -66,7 +66,7 @@ begin  -- architecture behav
       shift_right (arg => unsigned(raw_mantissa),
                    count => conv_integer(7-s))(22 downto 0)) when others;
 
-  Q <= sign & expr & mantissa + round;
+  Q <= (sign & expr & mantissa) + round;
 
   -- purpose: set input
   -- type   : combinational
