@@ -15,7 +15,9 @@ architecture rtl of flt is
 begin  -- architecture rtl
   
   ret <= '0' when a (30 downto 23) = x"00" and b (30 downto 0) = x"00"
-         else '1' when a < b
+         else '1' when a (31) = '1' and b (31) = '1' and a > b
+         else '1' when a (31) = '1' and b (31) = '0'
+         else '1' when a (31) = '0' and b (31) = '0' and a < b
          else '0';
 
   -- purpose: set ret -> C
