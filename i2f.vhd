@@ -17,6 +17,7 @@ architecture behav of i2f is
       Q : out std_logic_vector (4 downto 0));
   end component ZLC31;
 
+  signal isZero : boolean := false;
   signal sign : std_logic := '0';
   signal expr : std_logic_vector (7 downto 0) := (others => '0');
   signal mantissa : std_logic_vector (22 downto 0) := (others => '0');
@@ -66,7 +67,10 @@ begin  -- architecture behav
       shift_right (arg => unsigned(raw_mantissa),
                    count => conv_integer(7-s))(22 downto 0)) when others;
 
-  Q <= (sign & expr & mantissa) + round;
+  with isZero select
+    Q <=
+    (sign & expr & mantissa) + round when false,
+    x"00000000"                      when others;
 
   -- purpose: set input
   -- type   : combinational
@@ -74,6 +78,7 @@ begin  -- architecture behav
   main_loop: process (clk) is
   begin  -- process main_loop
     if rising_edge (clk) then
+      isZero <= A = x"00000000";
       sign <= A (31);
       i <= A (30 downto 0);
     end if;

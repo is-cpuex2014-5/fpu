@@ -1,12 +1,17 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-use IEEE.std_logic_unsigned.all;
+use IEEE.numeric_std.all;
 
 entity ZLC is
   
   port (
     A : in  std_logic_vector (27 downto 0);
     Q : out std_logic_vector (4 downto 0));
+
+  signal Z0 : std_logic_vector (3 downto 0) := (others => '0');
+  signal Z1 : std_logic_vector (2 downto 0) := (others => '0');
+  signal Z2 : std_logic_vector (1 downto 0) := (others => '0');
+  signal Z3 : std_logic_vector (1 downto 0) := (others => '0');
 
 end entity ZLC;
 
@@ -65,12 +70,16 @@ architecture rtl of ZLC is
   end function ZLC15;
   
 begin  -- architecture rtl
+  Z0 <= ZLC15 (A (27 downto 13));
+  Z1 <= ZLC7 (A (12 downto 6));
+  Z2 <= ZLC3 (A (5 downto 3));
+  Z3 <= ZLC3 (A (2 downto 0));
 
-  Q <= '0' & ZLC15 (A (27 downto 13))
-       when ZLC15 (A (27 downto 13)) /= 15
-       else "00000" + (ZLC15 (A (27 downto 13)) + ZLC7 (A (12 downto 6)))
-       when ZLC15 (A (27 downto 13)) + ZLC7 (A (12 downto 6)) /= 22
-       else "00000" + (ZLC15 (A (27 downto 13)) + ZLC7 (A (12 downto 6)) + ZLC3 (A (5 downto 3)))
-       when ZLC15 (A (27 downto 13)) + ZLC7 (A (12 downto 6)) + ZLC3 (A (5 downto 3)) /= 25
-       else "00000" + (ZLC15 (A (27 downto 13)) + ZLC7 (A (12 downto 6)) + ZLC3 (A (5 downto 3)) + ZLC3 (A (2 downto 0)));
+  Q <= '0' & Z0
+       when Z0 /= "1111"
+       else std_logic_vector(to_unsigned(to_integer (unsigned(Z1)) + 15,5))
+       when Z1 /= "111"
+       else std_logic_vector(to_unsigned(to_integer (unsigned(Z2)) + 22,5))
+       when Z2 /= "11"
+       else std_logic_vector(to_unsigned(to_integer (unsigned(Z3)) + 25,5));
 end architecture rtl;
