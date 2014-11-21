@@ -1,0 +1,4 @@
+vhdl	work	i2f.vhd
+vhdl	work	i2f_tb_sim.vhd
+vhdl	work	i2f_tb.vhd
+vhdl	work	ZLC_31.vhd
