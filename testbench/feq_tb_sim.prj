@@ -1,3 +1,3 @@
-vhdl work feq.vhd
+vhdl work ../src/feq.vhd
 vhdl work feq_tb.vhd
 vhdl work feq_tb_sim.vhd

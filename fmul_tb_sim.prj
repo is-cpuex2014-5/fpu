@@ -1,6 +1,0 @@
-vhdl work fmul.vhd
-vhdl work fmul_tb_sim.vhd
-vhdl work fmul_tb.vhd
-vhdl work fmul_stage1.vhd
-vhdl work fmul_stage2.vhd
-vhdl work fmul_stage3.vhd

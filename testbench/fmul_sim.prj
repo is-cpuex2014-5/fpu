@@ -1,0 +1,5 @@
+vhdl work ../src/fmul.vhd
+vhdl work fmul_sim.vhd
+vhdl work ../src/fmul_stage1.vhd
+vhdl work ../src/fmul_stage2.vhd
+vhdl work ../src/fmul_stage3.vhd

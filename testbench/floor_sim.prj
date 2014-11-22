@@ -1,0 +1,2 @@
+vhdl work floor_sim.vhd
+vhdl work ../src/floor.vhd

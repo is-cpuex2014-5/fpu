@@ -2,6 +2,10 @@ UNITS = fadd fsub fmul finv fsqrt floor i2f feq flt
 SIMS = $(UNITS:%=%_sim)
 TB_SIMS = $(UNITS:%=%_tb_sim)
 TESTBENCH = $(SIMS) $(TB_SIMS)
+vpath %.vhd src 
+vpath %.prj testbench
+vpath %_sim.vhd testbench
+vpath %_tb.vhd testbench
 
 all: $(TESTBENCH)
 
@@ -35,6 +39,6 @@ test:$(TESTBENCH)
 	./test.sh
 
 clean:
-	rm -f *.o $(TESTBENCH) *.vcd *.wdb
+	rm -f $(TESTBENCH) *.wdb
 
 .PHONY: all clean test

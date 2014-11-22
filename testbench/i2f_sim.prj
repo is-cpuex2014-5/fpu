@@ -1,0 +1,3 @@
+vhdl work ../src/i2f.vhd
+vhdl work i2f_sim.vhd
+vhdl work ../src/ZLC_31.vhd

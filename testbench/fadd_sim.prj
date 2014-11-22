@@ -1,0 +1,7 @@
+vhdl work ../src/fadd.vhd
+vhdl work fadd_sim.vhd
+vhdl work ../src/fadd_stage1.vhd
+vhdl work ../src/fadd_stage2.vhd
+vhdl work ../src/fadd_stage3.vhd
+vhdl work ../src/right_shift.vhd
+vhdl work ../src/ZLC.vhd

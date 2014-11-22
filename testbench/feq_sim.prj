@@ -1,0 +1,2 @@
+vhdl work ../src/feq.vhd
+vhdl work feq_sim.vhd

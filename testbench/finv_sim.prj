@@ -1,0 +1,2 @@
+vhdl work ../src/finv.vhd
+vhdl work finv_sim.vhd

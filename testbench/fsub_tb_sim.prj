@@ -1,0 +1,8 @@
+vhdl work ../src/fsub.vhd
+vhdl work fsub_tb_sim.vhd
+vhdl work ../src/fsub_stage1.vhd
+vhdl work ../src/fadd_stage2.vhd
+vhdl work ../src/fadd_stage3.vhd
+vhdl work ../src/right_shift.vhd
+vhdl work ../src/ZLC.vhd
+vhdl work fsub_tb.vhd

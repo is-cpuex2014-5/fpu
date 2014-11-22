@@ -1,0 +1,2 @@
+vhdl work ../src/flt.vhd
+vhdl work flt_sim.vhd
