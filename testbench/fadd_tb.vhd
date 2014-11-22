@@ -6,7 +6,8 @@ use ieee.std_logic_unsigned.all;
 entity fadd_tb is  
   port (
     clk : in std_logic;
-    Q : out std_logic_vector (7 downto 0));
+    isRunning : out std_logic;
+    result : out std_logic);
 end entity fadd_tb;
 
 architecture testbench of fadd_tb is
@@ -60,25 +61,30 @@ architecture testbench of fadd_tb is
   signal QQ : std_logic_vector (7 downto 0) := x"2f";
   signal ccc : std_logic_vector (31 downto 0) := (others => '0');  
   signal state : std_logic_vector (1 downto 0) := (others => '0');
+
+  signal i_isRunning : std_logic := '0';
+  signal i_result : std_logic := '1';
 begin  -- architecture fadd_tb
 
   i_fadd : fadd port map (s_a,s_b,clk,c);
+  isRunning <= i_isRunning;
+  result <= i_result;
 
-  judge: process (clk) is
+  judge: process (clk,i_isRunning) is
   begin  -- process judge
-    if rising_edge (clk) then  -- rising clock edge
+    if i_isRunning = '1' and rising_edge (clk) then  -- rising clock edge
       ccc <= cc (conv_integer (state));
-      if ccc = c then
-        Q <= x"30";
+      if ccc = c and i_result = '1' then
+        i_result <= '1';
       else
-        Q <= x"31";
+        i_result <= '0';
       end if;
     end if;
   end process judge;
 
   ram_loop: process (clk) is
     variable ss : character;
-
+    variable count : integer := 4;
   begin  -- process file_loop
     if clk'event and clk = '1' then    -- rising clock edge
       case state is
@@ -97,8 +103,15 @@ begin  -- architecture fadd_tb
       s_b <= b_lut (addr);
       cc(conv_integer(state)) <= ans_lut (addr);      
       if addr >= 7 then
-        addr <= 0;
+        if count > 0 then
+          count := count - 1;
+        else
+          i_isRunning <= '0';
+        end if;
       else
+        if addr = 5 then
+          i_isRunning <= '1';
+        end if;
         addr <= addr + 1;
       end if;
     end if;
