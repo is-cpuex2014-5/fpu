@@ -36,7 +36,7 @@ i2f_tb_sim: $(i2f_deps)
 	fuse -incremental -prj $< -o $@ $@
 
 test:$(TESTBENCH)
-	./test.sh
+	@./test.sh
 
 clean:
 	rm -f $(TESTBENCH) *.wdb
