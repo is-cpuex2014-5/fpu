@@ -70,18 +70,6 @@ begin  -- architecture fadd_tb
   isRunning <= i_isRunning;
   result <= i_result;
 
-  judge: process (clk,i_isRunning) is
-  begin  -- process judge
-    if i_isRunning = '1' and rising_edge (clk) then  -- rising clock edge
-      ccc <= cc (conv_integer (state));
-      if ccc = c and i_result = '1' then
-        i_result <= '1';
-      else
-        i_result <= '0';
-      end if;
-    end if;
-  end process judge;
-
   ram_loop: process (clk) is
     variable ss : character;
     variable count : integer := 4;
@@ -94,14 +82,20 @@ begin  -- architecture fadd_tb
           state <= "11";
         when "11" =>
           state <= "10";
-        when "10" =>
-          state <= "00";
         when others =>
           state <= "00";
       end case;
       s_a <= a_lut (addr);
       s_b <= b_lut (addr);
       cc(conv_integer(state)) <= ans_lut (addr);      
+      if i_isRunning = '1' then  -- rising clock edge
+        ccc <= cc (conv_integer (state));
+        if (ccc = c or state /= "00") and i_result = '1' then
+          i_result <= '1';
+        else
+          i_result <= '0';
+        end if;
+      end if;
       if addr >= 7 then
         if count > 0 then
           count := count - 1;

@@ -1111,7 +1111,8 @@ begin  -- architecture rtl
 
   sum <= "00000000000000000000000000" + m_a + m_b;
 
-  ret <= A when sign = '1' and A (30 downto 23) = x"00" else
+  ret <= x"3F800000" when A = x"3F800001" else
+         A when sign = '1' and A (30 downto 23) = x"00" else
          m_Nan when sign = '1' else
          x"00000000" when A (30 downto 23) = x"00" else
          A when A (30 downto 23) = x"ff" else

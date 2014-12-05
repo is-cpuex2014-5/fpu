@@ -8,11 +8,6 @@ entity ZLC is
     A : in  std_logic_vector (27 downto 0);
     Q : out std_logic_vector (4 downto 0));
 
-  signal Z0 : std_logic_vector (3 downto 0) := (others => '0');
-  signal Z1 : std_logic_vector (2 downto 0) := (others => '0');
-  signal Z2 : std_logic_vector (1 downto 0) := (others => '0');
-  signal Z3 : std_logic_vector (1 downto 0) := (others => '0');
-
 end entity ZLC;
 
 architecture rtl of ZLC is
@@ -69,6 +64,11 @@ architecture rtl of ZLC is
     return ret;
   end function ZLC15;
   
+  signal Z0 : std_logic_vector (3 downto 0) := (others => '0');
+  signal Z1 : std_logic_vector (2 downto 0) := (others => '0');
+  signal Z2 : std_logic_vector (1 downto 0) := (others => '0');
+  signal Z3 : std_logic_vector (1 downto 0) := (others => '0');
+
 begin  -- architecture rtl
   Z0 <= ZLC15 (A (27 downto 13));
   Z1 <= ZLC7 (A (12 downto 6));
