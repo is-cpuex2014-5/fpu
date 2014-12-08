@@ -23,7 +23,8 @@ architecture rtl of fmul_stage2 is
   signal i_underflow_bit : std_logic := '0';
 begin  -- architecture rtl
 
-  mantissa <= "00000000000000000000000000" + i_HH + i_HL (23 downto 11) + i_LH (23 downto 11) + 2; 
+  mantissa <= (others => '0') when i_HH = "00000000000000000000000000" else
+              "00000000000000000000000000" + i_HH + i_HL (23 downto 11) + i_LH (23 downto 11) + 2; 
 
   with i_underflow_bit select
     exp0 <=

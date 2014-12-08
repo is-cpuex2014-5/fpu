@@ -17,11 +17,17 @@ end entity fmul_stage1;
 architecture rtl of fmul_stage1 is
   signal i_a : std_logic_vector (31 downto 0) := (others => '0');
   signal i_b : std_logic_vector (31 downto 0) := (others => '0');
+  signal fa : boolean := false;
+  signal fb : boolean := false;
 begin  -- architecture rtl
-  HH <= ('1' & i_a (22 downto 11)) * ('1' & i_b (22 downto 11));
+  HH <= (others => '0') when i_a (30 downto 0) = "0000000000000000000000000000000" 
+        or i_b (30 downto 0) = "0000000000000000000000000000000" else
+        ('1' & i_a (22 downto 11)) * ('1' & i_b (22 downto 11));
   HL <= ('1' & i_a (22 downto 11)) * (i_b (10 downto 0));
   LH <= (i_a (10 downto 0)) * ('1' & i_b (22 downto 11));
-  exp0 <= "000000000" + i_a (30 downto 23) + i_b (30 downto 23) + 129;
+  exp0 <= (others => '0') when i_a (30 downto 0) = "0000000000000000000000000000000" 
+          or i_b (30 downto 0) = "0000000000000000000000000000000" else
+          "000000000" + i_a (30 downto 23) + i_b (30 downto 23) + 129;
   sign <= i_a (31) xor i_b (31);
   
   -- purpose: set i_a and i_b

@@ -34,17 +34,25 @@ architecture rtl of fsub_stage1 is
   signal diff_BA : std_logic_vector (7 downto 0) := (others => '0');
 begin  -- architecture rtl
 
-  with i_A (30 downto 0) > i_B (30 downto 0) select
-    m_g <=
-    "1" & i_A (22 downto 0) & "000" when true,
-    "1" & i_B (22 downto 0) & "000" when false;
+  m_g <= 
+    "1" & i_A (22 downto 0) & "000" when
+    (i_A (30 downto 0) > i_B (30 downto 0)) and
+    i_A (30 downto 23) /= x"00" else
+    "1" & i_B (22 downto 0) & "000" when 
+    (i_A (30 downto 0) <= i_B (30 downto 0)) and
+    i_B (30 downto 23) /= x"00" else
+    (others => '0');
 
   shift : right_shift port map (i_m_l,s,m_l);
 
-  with i_A (30 downto 0) > i_B (30 downto 0) select
-    i_m_l <=
-    "1" & i_B (22 downto 0) when true,
-    "1" & i_A (22 downto 0) when false;
+  i_m_l <=
+    "1" & i_A (22 downto 0) when
+    (i_A (30 downto 0) < i_B (30 downto 0)) and
+    i_A (30 downto 23) /= x"00" else
+    "1" & i_B (22 downto 0) when 
+    (i_A (30 downto 0) >= i_B (30 downto 0)) and
+    i_B (30 downto 23) /= x"00" else
+    (others => '0');
 
   diff_AB <= i_A (30 downto 23) - i_B (30 downto 23);
   diff_BA <= i_B (30 downto 23) - i_A (30 downto 23);
