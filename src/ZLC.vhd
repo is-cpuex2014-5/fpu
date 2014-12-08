@@ -18,7 +18,7 @@ architecture rtl of ZLC is
     return std_logic_vector is
     variable ret : std_logic_vector (1 downto 0) := (others => '0');
   begin  -- function ZLC3
-    ret (1) := A (2) nand A (1);
+    ret (1) := A (2) nor A (1);
     ret (0) := not (A (2) or (not A(1) and A (0)));
     return ret;
   end function ZLC3;
