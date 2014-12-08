@@ -25,6 +25,7 @@ architecture fadd_stage3 of fadd_stage3 is
   signal o_exp0 : std_logic_vector (7 downto 0) := (others => '0');
   signal o_exp : std_logic_vector (7 downto 0) := (others => '0');
   signal o_mantissa : std_logic_vector (22 downto 0) := (others => '0');
+
 begin  -- architecture fadd_stage3
  
   o_mantissa <= i_mantissa (25 downto 3) + '1'
@@ -68,7 +69,7 @@ begin  -- architecture fadd_stage3
             i_exp;
 
   o_exp <= (others => '0')
-           when i_leading_zero > 0 and (o_exp0 < (i_leading_zero - 1) or leading_zero >= 26)
+           when i_leading_zero > 0 and (o_exp0 < (i_leading_zero - 1) or i_leading_zero >= 26)
            else o_exp0 - i_leading_zero + 1;
 
   ret <= i_sign & o_exp & o_mantissa;
