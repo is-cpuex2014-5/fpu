@@ -1,0 +1,2 @@
+vhdl work ../src/fabs.vhd
+vhdl work fabs_sim.vhd
