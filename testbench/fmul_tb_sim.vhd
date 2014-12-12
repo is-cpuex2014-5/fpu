@@ -1,5 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use std.textio.all;
+use std.env.all;
+use ieee.std_logic_textio.all;
 
 entity fmul_tb_sim is
   
@@ -9,13 +12,27 @@ architecture sim of fmul_tb_sim is
   component fmul_tb is
     port (
       clk : in  std_logic;
-      Q   : out std_logic_vector (7 downto 0));
+      isRunning : out std_logic;
+      result : out std_logic);
   end component fmul_tb;
   signal clk : std_logic := '0';
-  signal Q : std_logic_vector (7 downto 0) := (others => '0');
   constant clk_period : time := 10 ns;
+  signal isRunning : std_logic := '1';
+  signal result : std_logic := '1';
 begin  -- architecture sim
-  test_bench : fmul_tb port map (clk,Q);
+  test_bench : fmul_tb port map (clk,isRunning,result);
+
+  display: process (isRunning) is
+  begin  -- process display
+    if isRunning'event and isRunning = '0' then  -- rising clock edge
+      if result = '1' then
+        write (output,"test is passed!!");
+      else
+        write (output,"test is NOT passed!!");
+      end if;
+      finish;
+    end if;
+  end process display;
 
   -- purpose: clock generator
   -- type   : combinational
