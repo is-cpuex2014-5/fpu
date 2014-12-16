@@ -64,11 +64,11 @@ begin  -- architecture fsub_sim
           state <= "00";
       end case;
       readline(inf, l);
-      read(l, aa);
+      hread(l, aa);
       read(l, ss);           -- read in the space character
-      read(l , bb);
+      hread(l , bb);
       read(l, ss);           -- read in the space character
-      read(l , ccc);
+      hread(l , ccc);
       a <= aa;
       b <= bb;
       cccc <= ccc;

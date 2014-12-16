@@ -31,7 +31,7 @@ architecture behav of fsub is
       isAddition     : in  std_logic;
       sign_out       : out std_logic;
       exp_out        : out std_logic_vector (7 downto 0);
-      mantissa       : out std_logic_vector (25 downto 0);  -- first '1' bit
+      mantissa       : out std_logic_vector (24 downto 0);  -- first '1' bit
                                                             -- cannot be included
       carryWhenRound : out std_logic;   -- carry when rounding
       leading_zero   : out std_logic_vector (4 downto 0);
@@ -42,7 +42,7 @@ architecture behav of fsub is
     port (
       sign           : in  std_logic;
       exponent       : in  std_logic_vector (7 downto 0);
-      mantissa       : in  std_logic_vector (25 downto 0);
+      mantissa       : in  std_logic_vector (24 downto 0);
       carryWhenRound : in  std_logic;
       leading_zero   : in  std_logic_vector (4 downto 0);
       CLK            : in  std_logic;
@@ -59,7 +59,7 @@ architecture behav of fsub is
   -- Stage 2 -> 3
   signal sign2 : std_logic := '0';
   signal exp2 : std_logic_vector (7 downto 0) := (others => '0');
-  signal mantissa : std_logic_vector (25 downto 0) := (others => '0');
+  signal mantissa : std_logic_vector (24 downto 0) := (others => '0');
   signal carryWhenRound : std_logic := '0';
   signal leading_zero : std_logic_vector (4 downto 0) := (others => '0');
 

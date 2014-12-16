@@ -12,7 +12,7 @@ entity fadd_stage2 is
     isAddition     : in  std_logic;
     sign_out       : out std_logic;
     exp_out        : out std_logic_vector (7 downto 0);    
-    mantissa       : out std_logic_vector (25 downto 0);  -- the bit first
+    mantissa       : out std_logic_vector (24 downto 0);  -- the bit first
                                                           -- '1' seems to be
                                                           -- set is not included
     -- mantissa(23bit) + G + R
@@ -47,18 +47,18 @@ begin  -- architecture fadd_stage2
   
   carryWhenRound <= '1'
                   when
-                    (m_leading_zero = "00000" and m_added (26 downto 4) = "0000000000000000000000") or
-                    (m_leading_zero = "00001" and m_added (25 downto 3) = "0000000000000000000000") or
-                    (m_leading_zero = "00010" and m_added (24 downto 2) = "0000000000000000000000") or
-                    (m_leading_zero = "00011" and m_added (23 downto 1) = "0000000000000000000000")
+                    (m_leading_zero = "00000" and m_added (26 downto 4) = "11111111111111111111111") or
+                    (m_leading_zero = "00001" and m_added (25 downto 3) = "11111111111111111111111") or
+                    (m_leading_zero = "00010" and m_added (24 downto 2) = "11111111111111111111111") or
+                    (m_leading_zero = "00011" and m_added (23 downto 1) = "11111111111111111111111")
                   else '0';
 
   with m_leading_zero (1 downto 0) select
     mantissa <=
-    m_added (26 downto 1)  when "00",
-    m_added (25 downto 0)  when "01",
-    m_added (24 downto 0) & '0'  when "10",
-    m_added (23 downto 0) & "00" when others;
+    m_added (26 downto 2)  when "00",
+    m_added (25 downto 1)  when "01",
+    m_added (24 downto 0)  when "10",
+    m_added (23 downto 0) & '0' when others;
   
   sign_out <= i_sign;
   exp_out <= i_exp;

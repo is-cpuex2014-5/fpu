@@ -7,7 +7,7 @@ entity fadd_stage3 is
   port (
     sign           : in  std_logic;
     exponent       : in  std_logic_vector (7 downto 0);
-    mantissa       : in  std_logic_vector (25 downto 0);
+    mantissa       : in  std_logic_vector (24 downto 0);
     -- mantissa(23bit) + G + R
     carryWhenRound : in  std_logic;
     leading_zero   : in  std_logic_vector (4 downto 0);
@@ -19,7 +19,7 @@ end entity fadd_stage3;
 architecture fadd_stage3 of fadd_stage3 is
   signal i_sign : std_logic := '0';
   signal i_exp : std_logic_vector (7 downto 0) := (others => '0');
-  signal i_mantissa : std_logic_vector (25 downto 0) := (others => '0');
+  signal i_mantissa : std_logic_vector (24 downto 0) := (others => '0');
   signal i_carry : std_logic := '0';
   signal i_leading_zero : std_logic_vector (4 downto 0) := (others => '0');
   signal o_exp0 : std_logic_vector (7 downto 0) := (others => '0');
@@ -28,35 +28,35 @@ architecture fadd_stage3 of fadd_stage3 is
 
 begin  -- architecture fadd_stage3
  
-  o_mantissa <= i_mantissa (25 downto 3) + '1'
+  o_mantissa <= i_mantissa (24 downto 2) + '1'
                 when i_leading_zero (4 downto 2) = "000" and
-                i_mantissa (2) = '1' and (i_mantissa (1) = '1' or i_mantissa (3) = '1') and
+                i_mantissa (1) = '1' and (i_mantissa (0) = '1' or i_mantissa (2) = '1') and
                 i_carry = '0'
                 else
                 "00000000000000000000000"
                 when i_leading_zero (4 downto 2) = "000" and
-                i_mantissa (2) = '1' and (i_mantissa (1) = '1' or i_mantissa (3) = '1') and
+                i_mantissa (1) = '1' and (i_mantissa (0) = '1' or i_mantissa (2) = '1') and
                 i_carry = '1'                
                 else
-                i_mantissa (25 downto 3)
+                i_mantissa (24 downto 2)
                 when i_leading_zero (4 downto 2) = "000"
                 else
-                i_mantissa (21 downto 0) & '0'
+                i_mantissa (20 downto 0) & "00"
                 when i_leading_zero (4 downto 2)  = "001"
                 else
-                i_mantissa (17 downto 0) & "00000"
+                i_mantissa (16 downto 0) & "000000"
                 when i_leading_zero (4 downto 2)  = "010"
                 else
-                i_mantissa (13 downto 0) & "000000000"
+                i_mantissa (12 downto 0) & "0000000000"
                 when i_leading_zero (4 downto 2)  = "011"
                 else
-                i_mantissa (9 downto 0) & "0000000000000"
+                i_mantissa (8 downto 0) & "00000000000000"
                 when i_leading_zero (4 downto 2)  = "100"
                 else
-                i_mantissa (5 downto 0) & "00000000000000000"
+                i_mantissa (4 downto 0) & "000000000000000000"
                 when i_leading_zero (4 downto 2)  = "101"
                 else
-                i_mantissa (1 downto 0) & "000000000000000000000"
+                i_mantissa (0)  & "0000000000000000000000"
                 when i_leading_zero (4 downto 2)  = "110"
                 else
                 "00000000000000000000000";

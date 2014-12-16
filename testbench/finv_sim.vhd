@@ -62,9 +62,9 @@ begin  -- architecture finv_sim
           state <= "00";
       end case;
       readline(inf, l);
-      read(l, aa);
+      hread(l, aa);
       read(l, ss);           -- read in the space character
-      read(l , bb);
+      hread(l , bb);
       a <= aa;
       tmpc <= bb;
       cccc <= tmpc;
