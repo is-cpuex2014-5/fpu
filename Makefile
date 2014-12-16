@@ -1,4 +1,4 @@
-UNITS = fadd fsub fmul finv fsqrt floor i2f feq flt fabs
+UNITS = fadd fsub fmul finv fsqrt floor i2f feq flt fabs fneg
 SIMS = $(UNITS:%=%_sim)
 TB_SIMS = $(UNITS:%=%_tb_sim)
 TESTBENCH = $(SIMS) $(TB_SIMS)
