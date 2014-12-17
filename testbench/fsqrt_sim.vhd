@@ -41,7 +41,6 @@ begin  -- architecture fsqrt_sim
     variable aa : std_logic_vector (31 downto 0) := (others => '0');
     variable bb : std_logic_vector (31 downto 0) := (others => '0');
     variable ss : character;
-    variable s : std_logic_vector (1 downto 0) := "00";
 
   begin  -- process file_loop
     if not endfile(inf) then
@@ -53,10 +52,9 @@ begin  -- architecture fsqrt_sim
         when "00" =>
           state <= "01";
         when "01" =>
-          state <= "11";
-        when "11" =>
           state <= "10";
         when "10" =>
+          s <= '1';
           state <= "00";
         when others =>
           state <= "00";
@@ -66,18 +64,13 @@ begin  -- architecture fsqrt_sim
       read(l, ss);           -- read in the space character
       read(l , bb);
       a <= aa;
-      tmpc <= bb;
+      cc (conv_integer (state)) <= bb;
       cccc <= tmpc;
-      if cccc = c or s /= "11" then
+      if cc (conv_integer (state)) = c or s = '0' then
         Q <= '0';
       else
         Q <= '1';
         assert false report "fsqrt test not passed!!" severity failure;
-      end if;
-      if s (0) = '0' then        
-        s (0) := '1';
-      else
-        s (1) := '1';
       end if;
     else
       wait;

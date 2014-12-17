@@ -1,3 +1,7 @@
 vhdl work ../src/fsqrt.vhd
+vhdl work ../src/fsqrt_stage1.vhd
+vhdl work ../src/fsqrt_stage2.vhd
+vhdl work ../src/fsqrt_stage3.vhd
+vhdl work ../src/fsqrt_types.vhd
 vhdl work fsqrt_tb.vhd
 vhdl work fsqrt_tb_sim.vhd
