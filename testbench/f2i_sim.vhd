@@ -28,10 +28,9 @@ architecture floor_sim of floor_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "floor.dat";
 begin  -- architecture floor_sim
 
-  file_open(inf, "floor.dat",  read_mode);
   i_floor : floor port map (a,clk,c);
 
   main_loop: process 
