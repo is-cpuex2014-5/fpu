@@ -21,7 +21,8 @@ begin  -- architecture rtl
   begin  -- process set_loop
     if rising_edge (CLK) then
       r.A <= A;
-      r.key <= (not A (23)) &  A(22 downto 14);
+      r.key <=
+        (not A (23)) &  A(22 downto 14);
     end if;
   end process set_loop;
   

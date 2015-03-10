@@ -31,10 +31,9 @@ architecture fsub_sim of fsub_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "fsub.dat";
 begin  -- architecture fsub_sim
 
-  file_open(inf, "fsub.dat",  read_mode);
   i_fsub : fsub port map (a,b,clk,c);
 
   main_loop: process 

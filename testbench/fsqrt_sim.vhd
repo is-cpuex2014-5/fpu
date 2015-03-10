@@ -30,10 +30,9 @@ architecture fsqrt_sim of fsqrt_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "fsqrt.dat";
 begin  -- architecture fsqrt_sim
 
-  file_open(inf, "fsqrt.dat",  read_mode);
   i_fsqrt : fsqrt port map (a,clk,c);
 
   main_loop: process 

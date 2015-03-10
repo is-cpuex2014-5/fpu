@@ -30,10 +30,9 @@ architecture feq_sim of feq_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "feq.dat";
 begin  -- architecture feq_sim
 
-  file_open(inf, "feq.dat",  read_mode);
   i_feq : feq port map (a,b,clk,c);
 
   main_loop: process 

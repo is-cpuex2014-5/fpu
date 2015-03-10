@@ -30,10 +30,9 @@ architecture flt_sim of flt_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "flt.dat";
 begin  -- architecture flt_sim
 
-  file_open(inf, "flt.dat",  read_mode);
   i_flt : flt port map (a,b,clk,c);
 
   main_loop: process 

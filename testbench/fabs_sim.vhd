@@ -30,10 +30,9 @@ architecture fabs_sim of fabs_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text;
+  file inf : text open read_mode is "fabs.dat";
 begin  -- architecture fabs_sim
 
-  file_open(inf, "fabs.dat",  read_mode);
   i_fabs : fabs port map (a,clk,c);
 
   main_loop: process 
