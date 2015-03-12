@@ -32,14 +32,12 @@ begin  -- architecture rtl
     sign & x"00" & x"00000" & "000" when others;
   
   
-  with 150 >= unsigned(expr) select
-    mantissa_out <= 
-    std_logic_vector(shift_left (arg => 
-                                 shift_right (arg => unsigned(mantissa_in),
+  mantissa_out <=
+    mantissa_in when 150 < unsigned (expr) or 127 > unsigned (expr) else
+    std_logic_vector(shift_left (arg =>
+                                 shift_right (arg   => unsigned(mantissa_in),
                                               count => 150 - to_integer(unsigned(expr))),
-                                 count => 150 - to_integer(unsigned(expr)))) when true,
-
-    mantissa_in                                                      when others;
+                                 count              => 150 - to_integer(unsigned(expr))));
 
   round_added <= mantissa_0 when unsigned(expr) < 127 or unsigned (expr) >= 150 else
                  mantissa_0 when sign = '0' else
