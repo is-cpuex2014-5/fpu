@@ -1,0 +1,3 @@
+vhdl work f2i_tb_sim.vhd
+vhdl work ../src/f2i.vhd
+vhdl work f2i_tb.vhd

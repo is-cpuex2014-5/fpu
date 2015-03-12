@@ -3,14 +3,14 @@ use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
 use IEEE.numeric_std.all;
 
-entity floor is 
+entity f2i is 
   port (
     A   : in  std_logic_vector (31 downto 0);
     CLK : in  std_logic;
     Q   : out std_logic_vector (31 downto 0));
-end entity floor;
+end entity f2i;
 
-architecture behav of floor is
+architecture behav of f2i is
   signal sign : std_logic := '0';
   signal expr : std_logic_vector (7 downto 0) := (others => '0');
   signal mantissa : std_logic_vector (22 downto 0) := (others => '0');

@@ -6,17 +6,17 @@ use ieee.numeric_std.all;
 use ieee.std_logic_unsigned.all;
 
 
-entity f2i_sim is  
+entity floor_sim is  
   port (
     Q : out std_logic);
-end entity f2i_sim;
+end entity floor_sim;
 
-architecture f2i_sim of f2i_sim is
-  component f2i is
+architecture floor_sim of floor_sim is
+  component floor is
     port (A : in std_logic_vector (31 downto 0);
           CLK : in std_logic;
           Q : out std_logic_vector (31 downto 0));
-  end component f2i;
+  end component floor;
 
   signal a : std_logic_vector (31 downto 0) := (others => '0');
   signal c : std_logic_vector (31 downto 0) := (others => '0');  
@@ -28,10 +28,10 @@ architecture f2i_sim of f2i_sim is
   signal state : std_logic_vector (1 downto 0) := (others => '0');
   signal s : std_logic := '0';
   constant clk_period : time := 10 ns;
-  file inf : text open read_mode is "f2i.dat";
-begin  -- architecture f2i_sim
+  file inf : text open read_mode is "floor.dat";
+begin  -- architecture floor_sim
 
-  i_f2i : f2i port map (a,clk,c);
+  i_floor : floor port map (a,clk,c);
 
   main_loop: process 
     variable l : line;
@@ -67,11 +67,11 @@ begin  -- architecture f2i_sim
         Q <= '0';
       else
         Q <= '1';
-        assert false report "f2i test not passed!!" severity failure;
+        assert false report "floor test not passed!!" severity failure;
       end if;
     else
       wait;
     end if;
   end process main_loop;
 
-end architecture f2i_sim;
+end architecture floor_sim;

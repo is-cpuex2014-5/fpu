@@ -1,21 +1,21 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity f2i_tb_sim is
+entity floor_tb_sim is
   
-end entity f2i_tb_sim;
+end entity floor_tb_sim;
 
-architecture sim of f2i_tb_sim is
-  component f2i_tb is
+architecture sim of floor_tb_sim is
+  component floor_tb is
     port (
       clk : in  std_logic;
       Q   : out std_logic_vector (7 downto 0));
-  end component f2i_tb;
+  end component floor_tb;
   signal clk : std_logic := '0';
   signal Q : std_logic_vector (7 downto 0) := (others => '0');
   constant clk_period : time := 10 ns;
 begin  -- architecture sim
-  test_bench : f2i_tb port map (clk,Q);
+  test_bench : floor_tb port map (clk,Q);
 
   -- purpose: clock generator
   -- type   : combinational

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # please change this variable when test target is changed
-tests="fadd_sim fsub_sim fmul_sim finv_sim floor_sim i2f_sim floor_sim fsqrt_sim feq_sim flt_sim fabs_sim fneg_sim"
+tests="fadd_sim fsub_sim fmul_sim finv_sim floor_sim i2f_sim floor_sim fsqrt_sim feq_sim flt_sim fabs_sim fneg_sim f2i_sim"
 ERROR_MES="User(VHDL) Code Called Simulation Stop"
 
 
